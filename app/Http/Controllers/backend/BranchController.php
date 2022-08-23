@@ -52,6 +52,13 @@ class BranchController extends Controller
         $branch->email = $request->email;
         $branch->status = $request->status;
         $branch->save();
+
+        return redirect() ->route("branch.manage")->with('message','Added Successfully');
+    }
+
+    public function manage(){
+        $branch = Branch::all();
+        return view("backend.pages.branch.manage",compact("branch"));
     }
 
     /**
@@ -60,9 +67,10 @@ class BranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit($id)
     {
-        //
+        $branch = Branch::find($id);
+        return view("backend.pages.branch.edit",compact("branch"));
     }
 
     /**
@@ -71,10 +79,6 @@ class BranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -85,7 +89,16 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $branch = Branch::find($id);
+
+        $branch->name = $request->name;
+        $branch->manager = $request->manager;
+        $branch->phone = $request->phone;
+        $branch->email = $request->email;
+        $branch->status = $request->status;
+        $branch->update();
+
+        return redirect() ->route("branch.manage")->with('message','Updated Successfully');
     }
 
     /**
@@ -96,6 +109,22 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $branch = Branch::find($id);
+        $branch->delete();
+        return redirect() ->route("branch.manage")->with('message','Deleted Successfully');
+    }
+
+    public function status(Request $request, $id)
+    {
+        $branch = Branch::find($id);
+        if($branch->status == 1){
+            $branch->status = "0";
+        }
+        else{
+            $branch->status = "1";
+        }
+        $branch->update();
+
+        return redirect() ->route("branch.manage")->with('message','Status Updated Successfully');
     }
 }

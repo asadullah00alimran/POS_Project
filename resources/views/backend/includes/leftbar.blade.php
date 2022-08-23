@@ -17,7 +17,7 @@
                 </a><!-- br-menu-link -->
                 <ul class="br-menu-sub">
                     <li class="sub-item"><a href="{{ Route('branch.add') }}" class="sub-link">Add Branch</a></li>
-                    <li class="sub-item"><a href="{{ Route('branch.add') }}" class="sub-link">Manage Branch</a></li>
+                    <li class="sub-item"><a href="{{ Route('branch.manage') }}" class="sub-link">Manage Branch</a></li>
                 </ul>
             </li>
 

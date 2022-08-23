@@ -20,6 +20,10 @@
     <script src="{{ asset('backend') }}/js/map.shiftworker.js"></script>
     <script src="{{ asset('backend') }}/js/ResizeSensor.js"></script>
     <script src="{{ asset('backend') }}/js/dashboard.js"></script>
+    
+    <!-- Tostr JS Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     <script>
         $(function () {
             'use strict'
@@ -47,4 +51,12 @@
                 }
             }
         });
+        @if(Session::has('message'))
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : false
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
     </script>

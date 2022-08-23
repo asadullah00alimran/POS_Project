@@ -21,6 +21,11 @@ Route::get('/', function () {
 Route::group(['prefix' => '/branch'],function(){
     Route::get('/add',[BranchController::class,'add'])->name('branch.add');
     Route::post('/store',[BranchController::class,'store'])->name('branch.store');
+    Route::get('/manage',[BranchController::class,'manage'])->name('branch.manage');
+    Route::get('/edit{id}',[BranchController::class,'edit'])->name('branch.edit');
+    Route::post('/update{id}',[BranchController::class,'update'])->name('branch.update');
+    Route::get('/destroy{id}',[BranchController::class,'destroy'])->name('branch.destroy');
+    Route::get('/status{id}',[BranchController::class,'status'])->name('branch.status');
 });
 
 

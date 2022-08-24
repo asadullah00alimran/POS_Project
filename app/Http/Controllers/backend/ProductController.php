@@ -62,8 +62,20 @@ class ProductController extends Controller
         ]);
     }
 
+
     public function edit($id){}
     public function update(Request $request, $id){}
-    public function destroy($id){}
+
+    //Delete Product
+    public function destroy($id){
+        
+        $product = Product::find($id);
+        $product->delete();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
     public function status($id){}
 }

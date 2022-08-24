@@ -1,5 +1,35 @@
 jQuery(document).ready(function () {
 
+    // This function for show product data
+    show();
+    function show() {
+        $.ajax({
+            url: '/product/show',
+            type: 'GET',
+            datatype: 'JSON',
+            success: function (response) {
+                var data = '';
+                var sl = 1;
+                $.each(response.data, function (key, item) {
+                    data += '<tr>\
+                            <td>'+ sl + '</td>\
+                            <td>'+ item.product_code + '</td>\
+                            <td>'+ item.name + '</td>\
+                            <td><div style="background:'+ item.color + ';width: 20px; height: 20px; border-radius: 50%;"></div></td>\
+                            <td>'+ item.sale_price + '</td>\
+                            <td>\
+                                <button value="'+ item.id + '" class="btn-edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>\
+                                <button value="'+ item.id + '"class=" btn btn-danger btn-sm"><i class="fa fa-trash"><i>\
+                            </td>\
+                        </tr>';
+                    sl++;
+                })
+                jQuery(".data").html(data);
+            }
+        });
+    }
+
+    // Add Product 
     jQuery(".btn-add").click(function () {
 
         $.ajaxSetup({
@@ -30,6 +60,7 @@ jQuery(document).ready(function () {
                 sale_price: sale_price
             },
             success: function (response) {
+                // Error Genarate
                 if (response.status == "faild") {
                     jQuery(".error_name").text(response.errors.name);
                     jQuery(".error_des").text(response.errors.des);
@@ -41,7 +72,8 @@ jQuery(document).ready(function () {
                 }
                 else {
                     jQuery(".msg").show().text("Added Successfully").fadeOut(1500);
-
+                    show();
+                    // Clear Form after send data
                     jQuery(".error_name").text("");
                     jQuery(".error_des").text("");
                     jQuery(".error_size").text("");

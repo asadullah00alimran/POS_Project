@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    // ADD product Page Route
     public function add(){
         return view("backend.pages.product.add");
     }
 
+    //Insert Product Data
     public function store(Request $request){
+
+        // Validation 
         $valid = Validator::make($request->all(),[
             'name' => 'required',
             'des' => 'required',
@@ -23,6 +27,7 @@ class ProductController extends Controller
             'cost_price' => 'required',
             'sale_price' => 'required',
         ]);
+
         if($valid->fails()){
             return response()->json([
                 'status' => 'faild',
@@ -30,6 +35,7 @@ class ProductController extends Controller
             ]);
         }
         else{
+            //Create object of Product
             $product = new Product();
 
             $product->name = $request->name;
@@ -48,7 +54,14 @@ class ProductController extends Controller
         }
     }
 
-    public function manage(){}
+    // Show Product
+    public function show(){
+        $product = Product::all();
+        return response()->json([
+            'data' => $product
+        ]);
+    }
+
     public function edit($id){}
     public function update(Request $request, $id){}
     public function destroy($id){}

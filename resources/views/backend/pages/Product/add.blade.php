@@ -37,15 +37,27 @@
         <table class="table">
             <thead>
                 <tr>
-                <th>Product Code</th>
-                <th>Product Name</th>
-                <th>Color</th>
-                <th>Cost Price</th>
-                <th>Sale Price</th>
-            </tr>
+                    <th>#sl</th>
+                    <th>Product Code</th>
+                    <th>Product Name</th>
+                    <th>Color</th>
+                    <th>Sale Price</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody class="data">
-                
+                <!-- <tr>
+                    <td>'++'</td>
+                    <td>'+item.name+'</td>
+                    <td>'++'</td>
+                    <td>'++'</td>
+                    <td>'++'</td>
+                    <td>'++'</td>
+                    <td>
+                        <button class="btn-edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>
+                        <button class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr> -->
             </tbody>
         </table>
     </div>

@@ -61,4 +61,25 @@
             </tbody>
         </table>
     </div>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delete-product">
+  Launch demo modal
+</button> -->
+    <!-- Modal for Delete -->
+    <div class="modal fade" id="delete-product" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmation Message !!!</h5>
+                </div>
+                <div class="modal-body">
+                    Are You Want to Delete ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+                    <button type="button" class="delete btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

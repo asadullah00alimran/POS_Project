@@ -85,7 +85,7 @@ jQuery(document).ready(function () {
                             <td>'+ item.sale_price + '</td>\
                             <td>\
                                 <button value="'+ item.id + '" class="btn-edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>\
-                                <button value="'+ item.id + '"class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash"><i>\
+                                <button data-toggle="modal" data-target="#delete-product" value="'+ item.id + '"class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash"><i>\
                             </td>\
                         </tr>';
                     sl++;
@@ -95,17 +95,26 @@ jQuery(document).ready(function () {
         });
     }
 
-    // This section is for delete product data
+
+    // DELETE
+
+    // this section for open modal and set id into modal's delete button
     jQuery(document).on("click", ".btn-delete", function () {
+        var id = jQuery(this).val();
+        jQuery(".delete").val(id);
+    });
+
+    // This section is for delete product data
+    jQuery(document).on("click", ".delete", function () {
         var id = jQuery(this).val();
         $.ajax({
             url: '/product/destroy' + id,
             type: 'GET',
             datatype: 'JSON',
             success: function (response) {
-                jQuery(".msg").show().text("Deleted Successfully").fadeOut(1500);
                 show();
-
+                jQuery(".msg").show().text("Deleted Successfully").fadeOut(1500);
+                jQuery("#delete-product").modal("hide");
             }
         });
     });

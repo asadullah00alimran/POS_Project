@@ -6,4 +6,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
+    <!-- Laravel CSRF Token Grnarator Meta Link -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Bracket Plus Responsive Bootstrap 4 Admin Template</title>

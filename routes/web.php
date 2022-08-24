@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BranchController;
+use App\Http\Controllers\Backend\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// All Routes for Branch
 Route::group(['prefix' => '/branch'],function(){
     Route::get('/add',[BranchController::class,'add'])->name('branch.add');
     Route::post('/store',[BranchController::class,'store'])->name('branch.store');
@@ -26,6 +28,17 @@ Route::group(['prefix' => '/branch'],function(){
     Route::post('/update{id}',[BranchController::class,'update'])->name('branch.update');
     Route::get('/destroy{id}',[BranchController::class,'destroy'])->name('branch.destroy');
     Route::get('/status{id}',[BranchController::class,'status'])->name('branch.status');
+});
+
+//All Routes For Products
+Route::group(['prefix' => '/product'],function(){
+    Route::get('/add',[ProductController::class,'add'])->name('product.add');
+    Route::post('/store',[ProductController::class,'store'])->name('product.store');
+    Route::get('/manage',[ProductController::class,'manage'])->name('product.manage');
+    Route::get('/edit{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::post('/update{id}',[ProductController::class,'update'])->name('product.update');
+    Route::get('/destroy{id}',[ProductController::class,'destroy'])->name('product.destroy');
+    Route::get('/status{id}',[ProductController::class,'status'])->name('product.status');
 });
 
 

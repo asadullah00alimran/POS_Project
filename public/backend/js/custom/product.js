@@ -84,7 +84,7 @@ jQuery(document).ready(function () {
                             <td><div style="background:'+ item.color + ';width: 20px; height: 20px; border-radius: 50%;"></div></td>\
                             <td>'+ item.sale_price + '</td>\
                             <td>\
-                                <button value="'+ item.id + '" class="btn-edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>\
+                                <button data-toggle="modal" data-target="#update-product" value="'+ item.id + '" class="btn-edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>\
                                 <button data-toggle="modal" data-target="#delete-product" value="'+ item.id + '"class="btn-delete btn btn-danger btn-sm"><i class="fa fa-trash"><i>\
                             </td>\
                         </tr>';
@@ -119,5 +119,66 @@ jQuery(document).ready(function () {
         });
     });
 
+    // UPDATE
+    jQuery(document).on("click", ".btn-edit", function () {
+        var id = jQuery(this).val();
+        jQuery(".btn-update").val(id);
 
+        //take the value from input field and put it into the variable
+        var name = jQuery("#name").val();
+        var des = jQuery("#des").val();
+        var size = jQuery("#size").val();
+        var color = jQuery("#color").val();
+        var product_code = jQuery("#product_code").val();
+        var cost_price = jQuery("#cost_price").val();
+        var sale_price = jQuery("#sale_price").val();
+
+        $.ajax({
+            url: '/product/edit' + id,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (response) {
+                jQuery("#name").val(response.data.name);
+                jQuery("#des").val(response.data.des);
+                jQuery("#size").val(response.data.size);
+                jQuery("#color").val(response.data.color);
+                jQuery("#product_code").val(response.data.product_code);
+                jQuery("#cost_price").val(response.data.cost_price);
+                jQuery("#sale_price").val(response.data.sale_price);
+                jQuery(".edit").val(response.data.id);
+            }
+        });
+
+    });
+
+    //for update data in modal
+    jQuery(document).on("click", ".btn-update", function (e) {
+        var id = jQuery(this).val();
+        // csrf token
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/product/update/' + id,
+            type: "POST",
+            datatype: "JSON",
+            data: {
+                name: name,
+                des: des,
+                size: size,
+                color: color,
+                product_code: product_code,
+                cost_price: cost_price,
+                sale_price: sale_price
+            },
+            success: function (response) {
+                show();
+                jQuery(".msg").show().text("Updated Successfully").fadeOut(1500);
+                jQuery("#edit-product").modal("hide");
+            }
+        });
+    });
 });

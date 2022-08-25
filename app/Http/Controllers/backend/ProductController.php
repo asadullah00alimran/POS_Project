@@ -62,10 +62,6 @@ class ProductController extends Controller
         ]);
     }
 
-
-    public function edit($id){}
-    public function update(Request $request, $id){}
-
     //Delete Product
     public function destroy($id){
         
@@ -76,6 +72,35 @@ class ProductController extends Controller
             'status' => 'success'
         ]);
     }
+
+    
+    // show product data fot Edit 
+    public function edit($id){
+
+        $product = Product::find($id);
+        return response()->json([
+            'data' => $product
+        ]);
+    }
+
+    //Update Product
+    public function update(Request $request, $id){
+        $product = Product::find($id);
+
+        $product->name = $request->name;
+        $product->des = $request->des;
+        $product->size = $request->size;
+        $product->color = $request->color;
+        $product->product_code = $request->product_code;
+        $product->cost_price = $request->cost_price;
+        $product->sale_price = $request->sale_price;
+        $product->update();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
 
     public function status($id){}
 }

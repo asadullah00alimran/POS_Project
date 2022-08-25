@@ -115,11 +115,14 @@ jQuery(document).ready(function () {
                 show();
                 jQuery(".msg").show().text("Deleted Successfully").fadeOut(1500);
                 jQuery("#delete-product").modal("hide");
+
             }
         });
     });
 
     // UPDATE
+
+    //Bring Data from database to modal for edit and update
     jQuery(document).on("click", ".btn-edit", function () {
         var id = jQuery(this).val();
         jQuery(".btn-update").val(id);
@@ -152,8 +155,19 @@ jQuery(document).ready(function () {
     });
 
     //for update data in modal
-    jQuery(document).on("click", ".btn-update", function (e) {
+
+    jQuery(document).on("click", ".btn-update", function () {
         var id = jQuery(this).val();
+
+        //stored updated data into the variable for push to database
+        var name = $('#name').val();
+        var des = $('#des').val();
+        var size = $('#size').val();
+        var color = $('#color').val();
+        var product_code = $('#product_code').val();
+        var cost_price = $('#cost_price').val();
+        var sale_price = $('#sale_price').val();
+
         // csrf token
         $.ajaxSetup({
             headers: {
@@ -178,6 +192,7 @@ jQuery(document).ready(function () {
                 show();
                 jQuery(".msg").show().text("Updated Successfully").fadeOut(1500);
                 jQuery("#edit-product").modal("hide");
+                jQuery("#update-product").modal("hide");
             }
         });
     });

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BranchController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\PurchaseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +40,18 @@ Route::group(['prefix' => '/product'],function(){
     Route::get('/edit{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::post('/update/{id}',[ProductController::class,'update'])->name('product.update');
     Route::get('/destroy{id}',[ProductController::class,'destroy'])->name('product.destroy');
-    Route::get('/status{id}',[ProductController::class,'status'])->name('product.status');
 });
 
-
-
-
-
-
+//All Routes For Purchase
+Route::group(['prefix' => '/purchase'],function(){
+    Route::get('/add',[PurchaseController::class,'add'])->name('purchase.add');
+    Route::post('/store',[PurchaseController::class,'store'])->name('purchase.store');
+    Route::get('/show',[PurchaseController::class,'show'])->name('purchase.show');
+    Route::get('/edit/{id}',[PurchaseController::class,'edit'])->name('purchase.edit');
+    Route::post('/update/{id}',[PurchaseController::class,'update'])->name('purchase.update');
+    Route::get('/destroy/{id}',[PurchaseController::class,'destroy'])->name('purchase.destroy');
+    Route::get('/find/{id}',[PurchaseController::class,'find'])->name('purchase.find');
+});
 
 
 Route::get('/admin', function () {

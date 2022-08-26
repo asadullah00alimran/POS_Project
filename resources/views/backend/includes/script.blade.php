@@ -23,6 +23,7 @@
 
     <!-- Custom JS File Link -->
     <script src="{{ asset('backend') }}/js/custom/product.js"></script>
+    <script src="{{ asset('backend') }}/js/custom/purchase.js"></script>
     
     <!-- Tostr JS Link -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

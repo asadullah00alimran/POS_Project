@@ -1,0 +1,93 @@
+// UPDATE
+    jQuery(document).on("click", ".btn-edit", function () {
+        var id = jQuery(this).val();
+        
+        //take the value from input field and put it into the variable
+        var name = jQuery("#name").val();
+        var des = jQuery("#des").val();
+        var size = jQuery("#size").val();
+        var color = jQuery("#color").val();
+        var product_code = jQuery("#product_code").val();
+        var cost_price = jQuery("#cost_price").val();
+        var sale_price = jQuery("#sale_price").val();
+
+        $.ajax({
+            url: '/product/edit' + id,
+            type: 'GET',
+            datatype: 'JSON',
+            success: function (response) {
+                jQuery("#name").val(response.data.name);
+                jQuery("#des").val(response.data.des);
+                jQuery("#size").val(response.data.size);
+                jQuery("#color").val(response.data.color);
+                jQuery("#product_code").val(response.data.product_code);
+                jQuery("#cost_price").val(response.data.cost_price);
+                jQuery("#sale_price").val(response.data.sale_price);
+                jQuery(".edit").val(response.data.id);
+            }
+        });
+
+    });
+
+    jQuery(document).on("click", ".edit", function () {
+        var id = jQuery(this).val();
+        // csrf token
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/product/update' + id,
+            type: 'POST',
+            datatype: 'JSON',
+            data: {
+                name: name,
+                des: des,
+                size: size,
+                color: color,
+                product_code: product_code,
+                cost_price: cost_price,
+                sale_price: sale_price
+            },
+            success: function (response) {
+                show();
+                jQuery(".msg").show().text("Updated Successfully").fadeOut(1500);
+                jQuery("#edit-product").modal("hide");
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+    // Edit Product
+    public function edit($id){
+
+        $product = Product::find($id);
+        return response()->json([
+            'data' => $product
+        ]);
+    }
+
+    //Update Product
+    public function update(Request $request, $id){
+        $product = Product::find();
+
+        $product->name = $request->name;
+        $product->des = $request->des;
+        $product->size = $request->size;
+        $product->color = $request->color;
+        $product->product_code = $request->product_code;
+        $product->cost_price = $request->cost_price;
+        $product->sale_price = $request->sale_price;
+        $product->update();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
